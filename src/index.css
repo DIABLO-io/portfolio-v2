@@ -142,3 +142,24 @@ body {
   height: 1px;
   background: linear-gradient(to right, #7dd3fc, rgba(125, 211, 252, 0.1));
 }
+
+
+.project-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 280ms ease;
+  background:
+    radial-gradient(
+      440px circle at var(--project-x, 50%) var(--project-y, 50%),
+      rgba(56, 189, 248, 0.075),
+      transparent 52%
+    );
+}
+
+.project-spotlight:hover::before {
+  opacity: 1;
+}
