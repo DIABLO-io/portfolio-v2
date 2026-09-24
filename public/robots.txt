@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://diablo-io.github.io/portfolio-v2/sitemap.xml
