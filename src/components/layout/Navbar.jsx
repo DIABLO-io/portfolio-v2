@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react'
 
 const navItems = [
-  { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Education', href: '#education' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About', href: '#about', id: 'about' },
+  { label: 'Experience', href: '#experience', id: 'experience' },
+  { label: 'Projects', href: '#projects', id: 'projects' },
+  { label: 'Skills', href: '#skills', id: 'skills' },
+  { label: 'Education', href: '#education', id: 'education' },
+  { label: 'Contact', href: '#contact', id: 'contact' },
 ]
 
 function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 18)
@@ -19,6 +20,34 @@ function Navbar() {
     window.addEventListener('scroll', handleScroll)
 
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const sections = navItems
+      .map((item) => document.getElementById(item.id))
+      .filter(Boolean)
+
+    if (!sections.length) return undefined
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+
+        if (visible[0]) {
+          setActiveSection(visible[0].target.id)
+        }
+      },
+      {
+        rootMargin: '-25% 0px -58% 0px',
+        threshold: [0.01, 0.15, 0.35],
+      },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+
+    return () => observer.disconnect()
   }, [])
 
   return (
@@ -45,21 +74,35 @@ function Navbar() {
         </a>
 
         <div className="hidden items-center gap-1 md:flex">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="rounded-lg px-2.5 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
-            >
-              {item.label}
-            </a>
-          ))}
+          {navItems.map((item) => {
+            const active = activeSection === item.id
+
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                aria-current={active ? 'location' : undefined}
+                className={`relative rounded-lg px-2.5 py-2 text-sm font-medium transition ${
+                  active
+                    ? 'bg-sky-400/[0.07] text-sky-200'
+                    : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                }`}
+              >
+                {item.label}
+                <span
+                  className={`absolute inset-x-2 -bottom-0.5 h-px origin-center bg-sky-300 transition-transform duration-300 ${
+                    active ? 'scale-x-100' : 'scale-x-0'
+                  }`}
+                />
+              </a>
+            )
+          })}
 
           <a
             href="mailto:boulhadaayoub@gmail.com"
             className="ml-2 rounded-xl border border-sky-300/30 bg-sky-400/10 px-4 py-2.5 text-sm font-semibold text-sky-200 transition hover:border-sky-300/50 hover:bg-sky-400/15"
           >
-            Let's talk
+            Let&apos;s talk
           </a>
         </div>
 
@@ -94,16 +137,24 @@ function Navbar() {
         }`}
       >
         <div className="mx-auto grid max-w-7xl gap-1 px-5 py-4">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
-            >
-              {item.label}
-            </a>
-          ))}
+          {navItems.map((item) => {
+            const active = activeSection === item.id
+
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className={`rounded-xl px-4 py-3 text-sm font-medium transition ${
+                  active
+                    ? 'bg-sky-400/[0.07] text-sky-200'
+                    : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                }`}
+              >
+                {item.label}
+              </a>
+            )
+          })}
         </div>
       </div>
     </header>
