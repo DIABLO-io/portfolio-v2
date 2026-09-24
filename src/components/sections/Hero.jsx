@@ -7,6 +7,7 @@ const architecture = [
 ]
 
 function Hero() {
+  const baseUrl = import.meta.env.BASE_URL
   const handlePointerMove = (event) => {
     const rect = event.currentTarget.getBoundingClientRect()
     event.currentTarget.style.setProperty('--spotlight-x', `${event.clientX - rect.left}px`)
@@ -70,10 +71,18 @@ function Hero() {
             </a>
 
             <a
-              href="mailto:boulhadaayoub@gmail.com"
+              href={`${baseUrl}Ayoub_Boulhada_Resume.pdf`}
+              download
               className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.035] px-5 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.07]"
             >
-              Contact me
+              Download CV
+            </a>
+
+            <a
+              href="mailto:boulhadaayoub@gmail.com"
+              className="inline-flex items-center justify-center rounded-xl px-4 py-3.5 text-sm font-semibold text-slate-400 transition hover:text-white"
+            >
+              Contact
             </a>
 
             <a
@@ -122,8 +131,12 @@ function Hero() {
                 <div className="relative grid size-20 shrink-0 place-items-center overflow-hidden rounded-2xl border border-sky-200/20 bg-gradient-to-br from-sky-400/20 to-blue-600/10 text-2xl font-black text-sky-200">
                   <span className="absolute inset-0 grid place-items-center">AB</span>
                   <img
-                    src="/profile.png"
+                    src={`${baseUrl}profile.png`}
                     alt="Ayoub Boulhada"
+                    width="80"
+                    height="80"
+                    fetchPriority="high"
+                    decoding="async"
                     className="relative z-10 size-full object-cover"
                     onError={(event) => {
                       event.currentTarget.style.display = 'none'
