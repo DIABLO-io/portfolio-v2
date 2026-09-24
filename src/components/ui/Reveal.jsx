@@ -8,12 +8,6 @@ function Reveal({ children, delay = 0, className = '' }) {
     const element = ref.current
     if (!element) return undefined
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduceMotion) {
-      setVisible(true)
-      return undefined
-    }
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
