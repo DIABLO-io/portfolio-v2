@@ -123,3 +123,22 @@ body {
     transition-duration: 0.001ms !important;
   }
 }
+
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: #7dd3fc;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-kicker::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: linear-gradient(to right, #7dd3fc, rgba(125, 211, 252, 0.1));
+}
