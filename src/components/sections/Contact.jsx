@@ -14,6 +14,7 @@ const links = [
 ]
 
 function Contact() {
+  const baseUrl = import.meta.env.BASE_URL
   const [copied, setCopied] = useState(false)
   const email = 'boulhadaayoub@gmail.com'
 
@@ -55,10 +56,19 @@ function Contact() {
                   Send me an email
                 </a>
 
+                <a
+                  href={`${baseUrl}Ayoub_Boulhada_Resume.pdf`}
+                  download
+                  className="inline-flex items-center justify-center rounded-xl border border-white/[0.12] bg-white/[0.03] px-5 py-3.5 text-sm font-semibold text-slate-200 transition hover:-translate-y-0.5 hover:border-white/[0.2] hover:bg-white/[0.06]"
+                >
+                  Download CV
+                </a>
+
                 <button
                   type="button"
                   onClick={copyEmail}
-                  className="inline-flex items-center justify-center rounded-xl border border-white/[0.12] bg-white/[0.03] px-5 py-3.5 text-sm font-semibold text-slate-200 transition hover:-translate-y-0.5 hover:border-white/[0.2] hover:bg-white/[0.06]"
+                  aria-live="polite"
+                  className="inline-flex items-center justify-center rounded-xl px-4 py-3.5 text-sm font-semibold text-slate-400 transition hover:text-white"
                 >
                   {copied ? 'Email copied ✓' : 'Copy email'}
                 </button>
