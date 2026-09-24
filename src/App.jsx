@@ -10,34 +10,40 @@ import Reveal from './components/ui/Reveal'
 
 function App() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
-      <Navbar />
-      <Hero />
+    <>
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
 
-      <Reveal>
-        <About />
-      </Reveal>
+      <main id="main-content" className="min-h-screen bg-slate-950 text-white">
+        <Navbar />
+        <Hero />
 
-      <Reveal delay={40}>
-        <Experience />
-      </Reveal>
+        <Reveal>
+          <About />
+        </Reveal>
 
-      <Reveal delay={60}>
-        <Projects />
-      </Reveal>
+        <Reveal delay={40}>
+          <Experience />
+        </Reveal>
 
-      <Reveal delay={60}>
-        <Skills />
-      </Reveal>
+        <Reveal delay={60}>
+          <Projects />
+        </Reveal>
 
-      <Reveal delay={60}>
-        <Education />
-      </Reveal>
+        <Reveal delay={60}>
+          <Skills />
+        </Reveal>
 
-      <Reveal delay={60}>
-        <Contact />
-      </Reveal>
-    </main>
+        <Reveal delay={60}>
+          <Education />
+        </Reveal>
+
+        <Reveal delay={60}>
+          <Contact />
+        </Reveal>
+      </main>
+    </>
   )
 }
 
